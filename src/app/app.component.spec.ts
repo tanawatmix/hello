@@ -1,29 +1,39 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { Component } from '@angular/core';
 
-describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-    }).compileComponents();
-  });
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'Regular19';
+  name: string = '';
+  email: string = '';
+  rows: { name: string; email: string; age: string }[] = [
+    { name: 'สมชาย', email: 'somchai@example.com', age: '30' }
+  ];
+  tableVisible: boolean = true;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  showAlert() {
+    alert('ยินดีต้อนรับสู่ Regular19!');
+  }
 
-  it(`should have the 'Once' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('Once');
-  });
+  clearForm() {
+    this.name = '';
+    this.email = '';
+    
+  }
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, hello');
-  });
-});
+  submitForm() {
+    if (this.name.trim() && this.email.trim()) {
+      this.rows.push({ name: this.name, email: this.email, age: '' });
+      this.clearForm();
+    } else {
+      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+    }
+  }
+
+  toggleTable() {
+    this.tableVisible = !this.tableVisible;
+  }
+}
